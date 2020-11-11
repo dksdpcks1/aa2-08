@@ -42,22 +42,11 @@
             console.log(msg[0]);
             console.log(parseInt(msg[1])); // Convert value to integer
             dtda[0]=msg[0];
-            dtda[1] = parseInt(msgp[1]); 
+            dtda[1] = parseInt(msg[1]); 
 
             // when new data is coming, keep on streaming data           
             ctime.innerHTML = dtda[0];
-           // nexstPt();     
-           tArray = tArray.concat(dtda[0]);
-           tArray.splice(0,1)
-           
-           xTrack = xTrack.concat(dtda[1]);
-           xTrack.splice(0,1)
-           
-           var update = {
-               x:[tArray],
-               y:[xTrack]
-           }
-        Plotly.update(streamPlot, update);
+            nextPt();                                
         });
     }); 
 
@@ -71,16 +60,16 @@
         Plotly.newPlot(streamPlot, data, layout);
     }
     
-    // function nextPt() {
+    function nextPt() {
 
-    //     tArray.shift();
-    //     tArray.push(dtda[0]);
+        tArray.shift();
+        tArray.push(dtda[0]);
         
-    //     xTrack.shift();
-    //     xTrack.push(dtda[1]);  // CdS sensor: lux
+        xTrack.shift();
+        xTrack.push(dtda[1]);  // CdS sensor: lux
 
-    //     Plotly.redraw(streamPlot);  
-    // }       
+        Plotly.redraw(streamPlot);  
+    }       
 
     // data
     var data = [{
@@ -111,7 +100,7 @@
         yaxis : {
             title : 'luminosity (lux)',
             domain : [0,1],
-            range : [0,500]
+            range : [0,100]
         }
     };
 
